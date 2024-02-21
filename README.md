@@ -28,7 +28,7 @@ Az Amazon NoSQL adatbázis-szolgáltatásához az Amazon DynamoDB-t használhatj
 2. Kattintsunk az **Create table** gombra.
 3. Adja meg a tábla nevét, és az elsődleges kulcsot (Partition key).
     - Tábla neve: mentordata
-    - Primary key: id (String)
+    - Partition key: id (String)
 4. Kattintsunk a **Create table** gombra.
 
 Pár perc múlva a tábla elkészül, és készen áll az adatok fogadására.
@@ -41,14 +41,13 @@ Pár perc múlva a tábla elkészül, és készen áll az adatok fogadására.
 4. Kattintsunk a **Next** gombra.
 5. Válasszuk ki a **Attach policies directly** lehetőséget, és keressük meg a **AmazonDynamoDBFullAccess** jogosultságot.
 6. Kattintsunk a **Next** gombra.
-7. Kattintsunk a **Next** gombra.
-8. Kattintsunk a **Create user** gombra.
-9. Válasszuk ki a felhasználót, és kattintsunk a **Security credentials** fülre.
-10. Válasszuk ki a a **Commant Line Interface (CLI)** lehetőséget.
-11. Jelöljük be a **I understand the above recommendation and want to proceed to create an access key.** lehetőséget.
-12. Kattintsunk a **Next** gombra.
-13. Kattintsunk a **Create access key** gombra.
-14. A generált hozzáférési kulcsokat mentse el, mert csak egyszer jelenik meg.
+7. Kattintsunk a **Create user** gombra.
+8. Válasszuk ki a felhasználót, és kattintsunk a **Security credentials** fülre.
+9. Válasszuk ki a a **Commant Line Interface (CLI)** lehetőséget.
+10. Jelöljük be a **I understand the above recommendation and want to proceed to create an access key.** lehetőséget.
+11. Kattintsunk a **Next** gombra.
+12. Kattintsunk a **Create access key** gombra.
+13. A generált hozzáférési kulcsokat mentse el, mert csak egyszer jelenik meg.
 
 ## Alkalmazás helyi futtatása
 
