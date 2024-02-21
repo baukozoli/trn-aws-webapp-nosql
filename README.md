@@ -1,7 +1,5 @@
 # AWS WebApp NoSQL hozzáféréssel
 
-
-
 Az Amazon NoSQL adatbázis-szolgáltatásához az Amazon DynamoDB-t használhatjuk. Ebben a példában megmutatom, hogyan lehet létrehozni egy egyszerű webalkalmazást az Express.js és az EJS (Embedded JavaScript templating) használatával Node.js-ben, ami képes adatok olvasására és írására egy DynamoDB táblában.
 
 ## Tartalomjegyzék
@@ -16,7 +14,6 @@ Az Amazon NoSQL adatbázis-szolgáltatásához az Amazon DynamoDB-t használhatj
   - [CodePipeline konfigurálása a folyamatos üzembehelyezéshez](#CodePipeline-konfigurálása-a-folyamatos-üzembehelyezéshez)
 - [JSON generálás](#JSON-generálás)
 
-
 ## Összetevők
 
 - AWS Elastic Beanstalk
@@ -27,8 +24,8 @@ Az Amazon NoSQL adatbázis-szolgáltatásához az Amazon DynamoDB-t használhatj
 1. Lépjünk be az AWS Management Console-ba, és keressük meg a DynamoDB szolgáltatást.
 2. Kattintsunk az **Create table** gombra.
 3. Adja meg a tábla nevét, és az elsődleges kulcsot (Partition key).
-    - Tábla neve: mentordata
-    - Partition key: id (String)
+   - Tábla neve: mentordata
+   - Partition key: id (String)
 4. Kattintsunk a **Create table** gombra.
 
 Pár perc múlva a tábla elkészül, és készen áll az adatok fogadására.
@@ -69,6 +66,24 @@ AWS_TABLE_NAME=mentordata
 
 ## Alkalmazás futtatása Elastic Beanstalk segítségével
 
+### EC2 instance profile létrehozása
+
+Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instance profile-ra, amely engedélyezi az EC2 példányoknak a megfelelő hozzáférését.
+
+1. Lépjünk be az AWS konzolba
+2. Keresőbe írjuk be az IAM szolgáltatást
+3. A bal oldali menüben kattintsunk az "Roles" menüpontra
+4. A `Trusted entity type` lehetőségek közül válasszuk ki az `AWS service` opciót
+5. A `Choose a use case` lehetőségek közül válasszuk ki az `EC2` opciót
+6. Kattintsunk a "Next" gombra
+7. Adjuk hozzá a következő engedélyeket:
+   - AWSElasticBeanstalkWebTier
+   - AWSElasticBeanstalkWorkerTier
+   - AWSElasticBeanstalkMulticontainerDocker
+8. Kattintsunk a "Next" gombra
+9. Role name: webalkalmazas-role
+10. Kattintsunk a "Create role" gombra
+
 ### Elastic Beanstalk környezet létrehozása
 
 1. Lépjünk be az AWS konzolba
@@ -87,9 +102,11 @@ AWS_TABLE_NAME=mentordata
    - Service role name: mentordata-role
 7. EC2 key pair: Create new key pair
    - Key pair name: mentordata-key
-8. Kattintsunk a "Next" gombra
-9. Kattintsunk a "Skip to review" gombra
-10. Kattintsunk a "Submit" gombra
+8. EC2 instance profile:
+   - Instance profile name: webalkalmazas-role
+9. Kattintsunk a "Next" gombra
+10. Kattintsunk a "Skip to review" gombra
+11. Kattintsunk a "Submit" gombra
 
 Ha létrejött a példa alkalmazás, adjuk hozzá az alkalmazás számára szükséges adatbázis hozzásférési paramétereket
 
@@ -103,12 +120,12 @@ Ha létrejött a példa alkalmazás, adjuk hozzá az alkalmazás számára szük
 6. Keressük meg az "Environment properties" részt és kattintsunk az "Add environment property" gombra
 7. Adjuk hozzá a következő környezeti változókat
 
-| Név         | Érték                                              |
-| ----------- | -------------------------------------------------- |
-| AWS_ACCESS_KEY     | {AWS access key}                                          |
+| Név            | Érték            |
+| -------------- | ---------------- |
+| AWS_ACCESS_KEY | {AWS access key} |
 | AWS_SECRET_KEY | {AWS secret key} |
-| AWS_REGION   | eu-central-1                                    |
-| AWS_TABLE_NAME     | mentordata                                             |
+| AWS_REGION     | eu-central-1     |
+| AWS_TABLE_NAME | mentordata       |
 
 8. Kattintsunk a "Apply" gombra
 
@@ -140,7 +157,6 @@ Végül CodePipeline segítségével töltsd fel a saját alkalmazásodat:
 Amikor elkészült a pipeline, a GitHub repository-ba feltöltött változások automatikusan frissítik az alkalmazást az Elastic Beanstalk környezetben.
 
 Pár perc múlva a [http://mentordata.eu-central-1.elasticbeanstalk.com/](http://mentordata.eu-central-1.elasticbeanstalk.com/) címen elérhető lesz az alkalmazás.
-
 
 ## JSON generálás
 
